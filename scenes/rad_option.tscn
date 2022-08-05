@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://art/icon.png" type="Texture" id=1]
+[ext_resource path="res://scripts/radial_option.gd" type="Script" id=2]
+
+[node name="rad_option" type="TextureButton"]
+rect_pivot_offset = Vector2( 32.0001, 32 )
+texture_normal = ExtResource( 1 )
+script = ExtResource( 2 )
