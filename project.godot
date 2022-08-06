@@ -9,12 +9,24 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Camera",
+"class": "ShakeCamera",
+"language": "GDScript",
+"path": "res://addons/camera_shake/camera_scripts/shake_camera.gd"
+}, {
+"base": "Camera2D",
+"class": "ShakeCamera2D",
+"language": "GDScript",
+"path": "res://addons/camera_shake/camera_scripts/shake_camera_2D.gd"
+}, {
 "base": "Resource",
 "class": "tower",
 "language": "GDScript",
-"path": "res://scripts/tower.gd"
+"path": "res://scripts/tower_resource.gd"
 } ]
 _global_script_class_icons={
+"ShakeCamera": "",
+"ShakeCamera2D": "",
 "tower": ""
 }
 
@@ -33,7 +45,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/radial_menu/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/camera_shake/plugin.cfg", "res://addons/radial_menu/plugin.cfg" )
 
 [physics]
 

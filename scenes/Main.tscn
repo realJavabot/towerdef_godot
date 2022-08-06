@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://art/tiles/path1.png" type="Texture" id=1]
 [ext_resource path="res://art/tiles/grass5.png" type="Texture" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://art/tiles/wall.png" type="Texture" id=9]
 [ext_resource path="res://addons/radial_menu/RadialMenu.gd" type="Script" id=10]
 [ext_resource path="res://scripts/Main.gd" type="Script" id=11]
+[ext_resource path="res://scripts/HealthLabel.gd" type="Script" id=12]
+[ext_resource path="res://addons/camera_shake/camera_scripts/shake_camera_2D.gd" type="Script" id=13]
 
 [sub_resource type="TileSet" id=1]
 0/name = "icon.png 0"
@@ -142,7 +144,7 @@
 
 [sub_resource type="Curve2D" id=2]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, -36, 349, 0, 0, 0, 0, 355, 350, 0, 0, 0, 0, 354, 96, 0, 0, 0, 0, 547, 99, 0, 0, 0, 0, 546, 546, 0, 0, 0, 0, 739, 551, 0, 0, 0, 0, 739, 484, 0, 0, 0, 0, 800, 484, 0, 0, 0, 0, 800, 160, 0, 0, 0, 0, 1074, 156 )
+"points": PoolVector2Array( 0, 0, 0, 0, -46.6293, 335.231, 0, 0, 0, 0, 334.347, 334.437, 0, 0, 0, 0, 335.934, 77.2784, 0, 0, 0, 0, 524.835, 77.2784, 0, 0, 0, 0, 528.804, 528.1, 0, 0, 0, 0, 720.085, 528.1, 0, 0, 0, 0, 716.911, 464.604, 0, 0, 0, 0, 783.581, 462.223, 0, 0, 0, 0, 785.962, 143.949, 0, 0, 0, 0, 1074.08, 143.155 )
 }
 
 [node name="Main" type="Node2D"]
@@ -154,6 +156,7 @@ format = 1
 tile_data = PoolIntArray( 0, -1610612733, 0, 1, -1610612732, 0, 2, -1610612732, 0, 3, -1610612733, 0, 4, -1610612733, 0, 5, -1610612733, 0, 6, -1610612733, 0, 7, -1610612733, 0, 8, -1610612733, 0, 9, -1610612735, 0, 10, -1610612733, 0, 11, -1610612733, 0, 12, -1610612733, 0, 13, -1610612735, 0, 14, -1610612732, 0, 15, -1610612732, 0, 65536, -1610612733, 0, 65537, -1610612735, 0, 65538, -1610612732, 0, 65539, -1610612734, 0, 65540, -1610612734, 0, 65541, -1073741818, 0, 65542, -1610612729, 0, 65543, -1610612729, 0, 65544, 6, 0, 65545, -1610612735, 0, 65546, -1610612733, 0, 65547, -1610612728, 0, 65548, -1610612733, 0, 65549, -1610612733, 0, 65550, -1610612734, 0, 65551, -1610612734, 0, 131072, -1610612735, 0, 131073, -1610612732, 0, 131074, -1610612732, 0, 131075, -1610612733, 0, 131076, -1610612734, 0, 131077, 7, 0, 131078, -1610612728, 0, 131079, -1610612728, 0, 131080, 1610612743, 0, 131081, -1610612734, 0, 131082, -1610612733, 0, 131083, -1610612733, 0, 131084, -1073741818, 0, 131085, -1073741817, 0, 131086, -1073741817, 0, 131087, -1073741817, 0, 196608, -1610612733, 0, 196609, -1610612732, 0, 196610, -1610612732, 0, 196611, -1610612733, 0, 196612, -1610612733, 0, 196613, 7, 0, 196614, -1610612735, 0, 196615, -1610612733, 0, 196616, 1610612743, 0, 196617, -1610612735, 0, 196618, -1610612732, 0, 196619, -1610612733, 0, 196620, 1610612743, 0, 196621, -1610612728, 0, 196622, -1610612735, 0, 196623, -1610612735, 0, 262144, -1610612734, 0, 262145, -1610612734, 0, 262146, -1610612735, 0, 262147, -1610612733, 0, 262148, -1610612728, 0, 262149, 7, 0, 262150, -1610612735, 0, 262151, -1610612735, 0, 262152, 1610612743, 0, 262153, -1610612734, 0, 262154, -1610612732, 0, 262155, -1610612733, 0, 262156, 1610612743, 0, 262157, -1610612728, 0, 262158, -1610612735, 0, 262159, -1610612733, 0, 327680, -1073741817, 0, 327681, -1073741817, 0, 327682, -1073741817, 0, 327683, -1073741817, 0, 327684, -1073741817, 0, 327685, -1610612730, 0, 327686, -1610612734, 0, 327687, -1610612732, 0, 327688, 1610612743, 0, 327689, -1610612733, 0, 327690, -1610612732, 0, 327691, -1610612733, 0, 327692, 1610612743, 0, 327693, -1610612733, 0, 327694, -1610612735, 0, 327695, -1610612735, 0, 393216, -1610612734, 0, 393217, -1610612734, 0, 393218, -1610612733, 0, 393219, -1610612728, 0, 393220, -1610612728, 0, 393221, -1610612728, 0, 393222, -1610612733, 0, 393223, -1610612732, 0, 393224, 1610612743, 0, 393225, -1610612733, 0, 393226, -1610612733, 0, 393227, -1610612733, 0, 393228, 7, 0, 393229, -1610612733, 0, 393230, -1610612732, 0, 393231, -1610612735, 0, 458752, -1610612734, 0, 458753, -1610612733, 0, 458754, -1610612733, 0, 458755, -1610612733, 0, 458756, -1610612733, 0, 458757, -1610612733, 0, 458758, -1610612735, 0, 458759, -1610612733, 0, 458760, 1610612743, 0, 458761, -1610612728, 0, 458762, -1610612728, 0, 458763, -1073741818, 0, 458764, -1610612730, 0, 458765, -1610612735, 0, 458766, -1610612735, 0, 458767, -1610612733, 0, 524288, -1610612733, 0, 524289, -1610612732, 0, 524290, -1610612732, 0, 524291, -1610612732, 0, 524292, -1610612733, 0, 524293, -1610612735, 0, 524294, -1610612735, 0, 524295, -1610612733, 0, 524296, 1610612742, 0, 524297, -1073741817, 0, 524298, -1073741817, 0, 524299, -1610612730, 0, 524300, -1610612733, 0, 524301, -1610612732, 0, 524302, -1610612735, 0, 524303, -1610612732, 0, 589824, -1610612732, 0, 589825, -1610612732, 0, 589826, -1610612733, 0, 589827, -1610612733, 0, 589828, -1610612733, 0, 589829, -1610612733, 0, 589830, -1610612732, 0, 589831, -1610612732, 0, 589832, -1610612732, 0, 589833, -1610612732, 0, 589834, -1610612732, 0, 589835, -1610612733, 0, 589836, -1610612733, 0, 589837, -1610612733, 0, 589838, -1610612732, 0, 589839, -1610612732, 0 )
 
 [node name="enemy_path" type="Path2D" parent="."]
+position = Vector2( 0, -0.793701 )
 curve = SubResource( 2 )
 
 [node name="cursor" type="Polygon2D" parent="."]
@@ -176,13 +179,59 @@ width_min = 0.256
 bevel_enabled = true
 modulate_enabled = true
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 514, 323 )
-current = true
+[node name="HealthLabel" type="RichTextLabel" parent="CanvasLayer/Control"]
+margin_left = 38.0
+margin_top = 23.0
+margin_right = 505.0
+margin_bottom = 80.0
+text = "HEALTH: 10"
+script = ExtResource( 12 )
+
+[node name="lost" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.490196 )
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/lost"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/lost/CenterContainer"]
+margin_left = 312.0
+margin_top = 288.0
+margin_right = 712.0
+margin_bottom = 352.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/lost/CenterContainer/VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 400, 40 )
+bbcode_enabled = true
+bbcode_text = "[center]You Lost"
+text = "You Lost"
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/lost/CenterContainer/VBoxContainer"]
+margin_top = 44.0
+margin_right = 400.0
+margin_bottom = 64.0
+
+[node name="restart" type="Button" parent="CanvasLayer/Control/lost/CenterContainer/VBoxContainer/CenterContainer"]
+margin_left = 150.0
+margin_right = 249.0
+margin_bottom = 20.0
+size_flags_horizontal = 0
+text = "back to menu"
 
 [node name="update_timer" type="Timer" parent="."]
 wait_time = 0.75
 autostart = true
 
+[node name="ShakeCamera2D" type="Camera2D" parent="."]
+position = Vector2( 512, 320 )
+current = true
+script = ExtResource( 13 )
+
 [connection signal="selected" from="CanvasLayer/Control/BuildMenu" to="." method="_on_BuildMenu_selected"]
+[connection signal="button_up" from="CanvasLayer/Control/lost/CenterContainer/VBoxContainer/CenterContainer/restart" to="." method="_on_restart_button_up"]
 [connection signal="timeout" from="update_timer" to="." method="_on_update_timer_timeout"]

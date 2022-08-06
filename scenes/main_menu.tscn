@@ -17,6 +17,8 @@ margin_top = 270.0
 margin_right = 762.0
 margin_bottom = 370.0
 rect_min_size = Vector2( 500, 100 )
+bbcode_enabled = true
+bbcode_text = "[center]Rhythm Tower Defense"
 text = "Rhythm Tower Defense"
 
 [node name="Button" type="Button" parent="CenterContainer"]

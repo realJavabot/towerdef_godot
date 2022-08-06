@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://art/tiles/grass1.png" type="Texture" id=1]
+[ext_resource path="res://scripts/towers/bell_tower.gd" type="Script" id=2]
+
+[node name="BellTower" type="Sprite"]
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
