@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://art/PNG/smoke_04.png" type="Texture" id=1]
+[ext_resource path="res://scripts/dust.gd" type="Script" id=2]
+
+[sub_resource type="CanvasItemMaterial" id=3]
+blend_mode = 2
+light_mode = 1
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.192547, 0.36646, 0.981366, 1 )
+colors = PoolColorArray( 0.322754, 0.322754, 0.322754, 1, 0.186035, 0.186035, 0.186035, 1, 0.475098, 0.475098, 0.475098, 1, 0.0632324, 0.0632324, 0.0632324, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 0.802273 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 200.0
+initial_velocity_random = 0.5
+angular_velocity = 211.76
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.0
+scale_random = 0.28
+scale_curve = SubResource( 7 )
+color = Color( 0.505882, 0.211765, 0.211765, 1 )
+color_ramp = SubResource( 5 )
+
+[node name="dust" type="Particles2D"]
+material = SubResource( 3 )
+emitting = false
+amount = 10
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 8 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="free_timer" type="Timer" parent="."]
+wait_time = 0.7
+
+[connection signal="timeout" from="free_timer" to="." method="_on_free_timer_timeout"]

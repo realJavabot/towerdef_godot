@@ -45,7 +45,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/camera_shake/plugin.cfg", "res://addons/radial_menu/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/Trail/plugin.cfg", "res://addons/camera_shake/plugin.cfg", "res://addons/radial_menu/plugin.cfg" )
 
 [physics]
 

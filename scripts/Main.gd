@@ -6,8 +6,10 @@ onready var build_menu := $CanvasLayer/Control/BuildMenu
 onready var enemy_path := $enemy_path
 onready var rad_option_scene = load("res://scenes/rad_option.tscn")
 onready var enemy_scene = load("res://scenes/enemy.tscn")
+onready var enemy_cont_scene = load("res://scenes/EnemyCont.tscn")
 onready var update_timer = $update_timer
 onready var health_label = $CanvasLayer/Control/HealthLabel
+onready var ysort = $ysort
 
 const BPM = 200.0
 const BPM_SEC = 60.0/BPM
@@ -75,7 +77,7 @@ func construct(pos: Vector2, cell_pos: Vector2, tower_data: tower):
 	new_tower.enemies = enemies
 	
 	connect("on_beat", new_tower, "on_beat")
-	add_child(new_tower)
+	ysort.add_child(new_tower)
 	
 	map.set_cellv(cell_pos, 0)
 
@@ -99,13 +101,19 @@ func _on_BuildMenu_selected(child):
 
 func _on_update_timer_timeout():
 	var en = enemy_scene.instance()
-	en.anim_speed = BPM_SEC * .6
 	
 	en.connect("damage", self, "on_damage")
 	en.connect("destroyed", self, "on_destroy")
 	connect("on_beat", en, "on_beat")
+	ysort.add_child(en)
 	
-	enemy_path.add_child(en)
+	var en_cont = enemy_cont_scene.instance()
+	en_cont.anim_speed = BPM_SEC * .6
+	
+	connect("on_beat", en_cont, "on_beat")
+	en_cont.get_node("RemoteTransform2D").remote_path = en.get_path()
+	
+	enemy_path.add_child(en_cont)
 	enemies.push_back(en)
 	
 	emit_signal("on_beat")

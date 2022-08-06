@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://art/tiles/path1.png" type="Texture" id=1]
 [ext_resource path="res://art/tiles/grass5.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://scripts/Main.gd" type="Script" id=11]
 [ext_resource path="res://scripts/HealthLabel.gd" type="Script" id=12]
 [ext_resource path="res://addons/camera_shake/camera_scripts/shake_camera_2D.gd" type="Script" id=13]
+[ext_resource path="res://fonts/SHOWG.TTF" type="DynamicFontData" id=14]
 
 [sub_resource type="TileSet" id=1]
 0/name = "icon.png 0"
@@ -144,8 +145,14 @@
 
 [sub_resource type="Curve2D" id=2]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, -46.6293, 335.231, 0, 0, 0, 0, 334.347, 334.437, 0, 0, 0, 0, 335.934, 77.2784, 0, 0, 0, 0, 524.835, 77.2784, 0, 0, 0, 0, 528.804, 528.1, 0, 0, 0, 0, 720.085, 528.1, 0, 0, 0, 0, 716.911, 464.604, 0, 0, 0, 0, 783.581, 462.223, 0, 0, 0, 0, 785.962, 143.949, 0, 0, 0, 0, 1074.08, 143.155 )
+"points": PoolVector2Array( 0, 0, 0, 0, -46.6293, 335.231, 0, 0, 0, 0, 334.347, 334.437, 0, 0, 0, 0, 335.934, 77.2784, 0, 0, 0, 0, 524.835, 77.2784, 0, 0, 0, 0, 528.804, 528.1, 0, 0, 0, 0, 720.085, 528.1, 0, 0, 0, 0, 716.911, 464.604, 0, 0, 0, 0, 783.581, 462.223, 0, 0, 0, 0, 785.962, 143.949, 0, 0, 0, 0, 1343, 142.794 )
 }
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+outline_size = 2
+outline_color = Color( 0.145098, 0.262745, 0.192157, 1 )
+font_data = ExtResource( 14 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 11 )
@@ -184,6 +191,7 @@ margin_left = 38.0
 margin_top = 23.0
 margin_right = 505.0
 margin_bottom = 80.0
+custom_fonts/normal_font = SubResource( 3 )
 text = "HEALTH: 10"
 script = ExtResource( 12 )
 
@@ -231,6 +239,8 @@ autostart = true
 position = Vector2( 512, 320 )
 current = true
 script = ExtResource( 13 )
+
+[node name="ysort" type="YSort" parent="."]
 
 [connection signal="selected" from="CanvasLayer/Control/BuildMenu" to="." method="_on_BuildMenu_selected"]
 [connection signal="button_up" from="CanvasLayer/Control/lost/CenterContainer/VBoxContainer/CenterContainer/restart" to="." method="_on_restart_button_up"]
