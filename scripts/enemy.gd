@@ -10,6 +10,8 @@ onready var health_anim = $health_anim
 onready var dust_cloud = load("res://scenes/dust.tscn")
 export var health := 5
 
+var frozen := false
+
 func _ready():
 	health_bar.max_value = health
 	health_bar.value = health
@@ -18,6 +20,8 @@ func _ready():
 	health_bar.add_stylebox_override("fg", new_style)
 
 func on_beat():
+	if frozen:
+		return
 	anim.play("wiggle")
 
 func destroy():
@@ -33,8 +37,12 @@ func hurt(amt):
 		dust.position = position
 		dust.emitting = true
 		get_tree().root.add_child(dust)
+		var main = get_tree().root.get_node("Main")
+		main.time_bar_amt = main.time_bar_amt + 1
 		destroy()
 
+func on_freeze(state):
+	frozen = state
 
 func _on_VisibilityNotifier2D_screen_exited():
 	if health <= 0:

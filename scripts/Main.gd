@@ -9,6 +9,8 @@ onready var enemy_scene = load("res://scenes/enemy.tscn")
 onready var enemy_cont_scene = load("res://scenes/EnemyCont.tscn")
 onready var update_timer = $update_timer
 onready var health_label = $CanvasLayer/Control/HealthLabel
+onready var time_bar = $CanvasLayer/Control/center/TimeBar
+onready var distortion = $CanvasLayer/Control/distortion_effect
 onready var ysort = $ysort
 
 const BPM = 200.0
@@ -21,9 +23,13 @@ var selected_pos : Vector2
 var selected_cell_pos: Vector2
 var health = 10 setget set_health
 var enemies = []
+var time_bar_amt = 0 setget time_bar_set
+
+export (Array, Texture) var time_bar_tex_array
 
 signal health_changed(new_health)
 signal on_beat
+signal freeze(state)
 
 func _ready():
 	update_timer.wait_time = BPM_SEC
@@ -62,6 +68,17 @@ func _unhandled_input(event):
 			var cell_pos = tile_pos/CELLDIM
 			match map.get_cellv(cell_pos):
 				TYPE.BUILD_AREA: pos_menu(tile_pos, cell_pos)
+	if event.is_action_pressed("freeze") and time_bar_amt == len(time_bar_tex_array)-1:
+		$distortion_tween.interpolate_method(self, "distort", 0, 1.0, .6)
+		$distortion_tween.start()
+		emit_signal('freeze', true)
+		$FreezeTimer.start()
+		self.time_bar_amt = 0
+		
+
+func distort(time):
+	distortion.material.set_shader_param("radius", time)
+	$ShakeCamera2D.add_stress(.03)
 
 func pos_menu(pos: Vector2, cell_pos: Vector2):
 	build_menu.visible = true;
@@ -85,6 +102,10 @@ func set_health(amt):
 	health = amt
 	emit_signal("health_changed", health)
 
+func time_bar_set(amt):
+	time_bar_amt = clamp(amt, 0, len(time_bar_tex_array)-1)
+	time_bar.texture = time_bar_tex_array[time_bar_amt]
+
 func on_damage():
 	self.health = health - 1
 	if(health <= 0):
@@ -100,25 +121,32 @@ func _on_BuildMenu_selected(child):
 	build_menu.visible = false;
 
 func _on_update_timer_timeout():
+	emit_signal("on_beat")
+	
+	if !$FreezeTimer.is_stopped():
+		return
+		
 	var en = enemy_scene.instance()
 	
 	en.connect("damage", self, "on_damage")
 	en.connect("destroyed", self, "on_destroy")
 	connect("on_beat", en, "on_beat")
+	connect("freeze", en, "on_freeze")
 	ysort.add_child(en)
 	
 	var en_cont = enemy_cont_scene.instance()
 	en_cont.anim_speed = BPM_SEC * .6
+	en_cont.enemy_node = weakref(en)
 	
 	connect("on_beat", en_cont, "on_beat")
-	en_cont.get_node("RemoteTransform2D").remote_path = en.get_path()
 	
 	enemy_path.add_child(en_cont)
 	enemies.push_back(en)
-	
-	emit_signal("on_beat")
-
 
 func _on_restart_button_up():
 	enemy_path.queue_free()
 	get_tree().change_scene("res://scenes/main_menu.tscn")
+
+
+func _on_FreezeTimer_timeout():
+	emit_signal('freeze', false)

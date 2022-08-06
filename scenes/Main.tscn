@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://art/tiles/path1.png" type="Texture" id=1]
 [ext_resource path="res://art/tiles/grass5.png" type="Texture" id=2]
@@ -13,7 +13,14 @@
 [ext_resource path="res://scripts/Main.gd" type="Script" id=11]
 [ext_resource path="res://scripts/HealthLabel.gd" type="Script" id=12]
 [ext_resource path="res://addons/camera_shake/camera_scripts/shake_camera_2D.gd" type="Script" id=13]
-[ext_resource path="res://fonts/SHOWG.TTF" type="DynamicFontData" id=14]
+[ext_resource path="res://fonts/1313_Mockingbird_Lane.ttf" type="DynamicFontData" id=14]
+[ext_resource path="res://art/tiles/gate.png" type="Texture" id=15]
+[ext_resource path="res://art/Petrify bar/petrifyempty.png" type="Texture" id=16]
+[ext_resource path="res://art/Petrify bar/petrify4.png" type="Texture" id=17]
+[ext_resource path="res://art/Petrify bar/petrify1.png" type="Texture" id=18]
+[ext_resource path="res://art/Petrify bar/petrify3.png" type="Texture" id=19]
+[ext_resource path="res://art/Petrify bar/petrify2.png" type="Texture" id=20]
+[ext_resource path="res://art/Petrify bar/petrifyready.png" type="Texture" id=21]
 
 [sub_resource type="TileSet" id=1]
 0/name = "icon.png 0"
@@ -149,18 +156,59 @@ _data = {
 }
 
 [sub_resource type="DynamicFont" id=3]
-size = 32
+size = 50
 outline_size = 2
 outline_color = Color( 0.145098, 0.262745, 0.192157, 1 )
 font_data = ExtResource( 14 )
 
+[sub_resource type="Shader" id=4]
+code = "shader_type canvas_item;
+
+uniform float strength: hint_range(0.0, 0.1, 0.001) = 0.08;
+uniform vec2 center = vec2(0.5, 0.5);
+uniform float radius: hint_range(0.0, 1.0, 0.001) = 0.25;
+
+
+uniform float aberration: hint_range(0.0, 1.0, 0.001) = 0.425;
+uniform float width: hint_range(0.0, 0.1, 0.0001) = 0.04;
+uniform float feather: hint_range(0.0, 1.0, 0.001) = 0.135;
+
+void fragment() {
+	vec2 st = SCREEN_UV;
+	float aspect_ratio = SCREEN_PIXEL_SIZE.y/SCREEN_PIXEL_SIZE.x;
+	vec2 scaled_st = (st -vec2(0.0, 0.5)) / vec2(1.0, aspect_ratio) + vec2(0,0.5); 
+	vec2 dist_center = scaled_st - center;
+	float mask =  (1.0 - smoothstep(radius-feather, radius, length(dist_center))) * smoothstep(radius - width - feather, radius-width , length(dist_center));
+	vec2 offset = normalize(dist_center)*strength*mask;
+	vec2 biased_st = scaled_st - offset;
+	
+	vec2 abber_vec = offset*aberration*mask;
+	
+	vec2 final_st = st*(1.0-mask) + biased_st*mask;
+
+	vec4 red = texture(SCREEN_TEXTURE, final_st + abber_vec);
+	vec4 blue = texture(SCREEN_TEXTURE, final_st - abber_vec);
+	vec4 ori = texture(SCREEN_TEXTURE, final_st);
+	COLOR = vec4(red.r, ori.g, blue.b, 1.0);
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+shader_param/strength = 0.019
+shader_param/center = Vector2( 0.5, 0.5 )
+shader_param/radius = 0.0
+shader_param/aberration = 0.425
+shader_param/width = 0.1
+shader_param/feather = 0.108
+
 [node name="Main" type="Node2D"]
 script = ExtResource( 11 )
+time_bar_tex_array = [ ExtResource( 16 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 17 ), ExtResource( 21 ) ]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
 format = 1
-tile_data = PoolIntArray( 0, -1610612733, 0, 1, -1610612732, 0, 2, -1610612732, 0, 3, -1610612733, 0, 4, -1610612733, 0, 5, -1610612733, 0, 6, -1610612733, 0, 7, -1610612733, 0, 8, -1610612733, 0, 9, -1610612735, 0, 10, -1610612733, 0, 11, -1610612733, 0, 12, -1610612733, 0, 13, -1610612735, 0, 14, -1610612732, 0, 15, -1610612732, 0, 65536, -1610612733, 0, 65537, -1610612735, 0, 65538, -1610612732, 0, 65539, -1610612734, 0, 65540, -1610612734, 0, 65541, -1073741818, 0, 65542, -1610612729, 0, 65543, -1610612729, 0, 65544, 6, 0, 65545, -1610612735, 0, 65546, -1610612733, 0, 65547, -1610612728, 0, 65548, -1610612733, 0, 65549, -1610612733, 0, 65550, -1610612734, 0, 65551, -1610612734, 0, 131072, -1610612735, 0, 131073, -1610612732, 0, 131074, -1610612732, 0, 131075, -1610612733, 0, 131076, -1610612734, 0, 131077, 7, 0, 131078, -1610612728, 0, 131079, -1610612728, 0, 131080, 1610612743, 0, 131081, -1610612734, 0, 131082, -1610612733, 0, 131083, -1610612733, 0, 131084, -1073741818, 0, 131085, -1073741817, 0, 131086, -1073741817, 0, 131087, -1073741817, 0, 196608, -1610612733, 0, 196609, -1610612732, 0, 196610, -1610612732, 0, 196611, -1610612733, 0, 196612, -1610612733, 0, 196613, 7, 0, 196614, -1610612735, 0, 196615, -1610612733, 0, 196616, 1610612743, 0, 196617, -1610612735, 0, 196618, -1610612732, 0, 196619, -1610612733, 0, 196620, 1610612743, 0, 196621, -1610612728, 0, 196622, -1610612735, 0, 196623, -1610612735, 0, 262144, -1610612734, 0, 262145, -1610612734, 0, 262146, -1610612735, 0, 262147, -1610612733, 0, 262148, -1610612728, 0, 262149, 7, 0, 262150, -1610612735, 0, 262151, -1610612735, 0, 262152, 1610612743, 0, 262153, -1610612734, 0, 262154, -1610612732, 0, 262155, -1610612733, 0, 262156, 1610612743, 0, 262157, -1610612728, 0, 262158, -1610612735, 0, 262159, -1610612733, 0, 327680, -1073741817, 0, 327681, -1073741817, 0, 327682, -1073741817, 0, 327683, -1073741817, 0, 327684, -1073741817, 0, 327685, -1610612730, 0, 327686, -1610612734, 0, 327687, -1610612732, 0, 327688, 1610612743, 0, 327689, -1610612733, 0, 327690, -1610612732, 0, 327691, -1610612733, 0, 327692, 1610612743, 0, 327693, -1610612733, 0, 327694, -1610612735, 0, 327695, -1610612735, 0, 393216, -1610612734, 0, 393217, -1610612734, 0, 393218, -1610612733, 0, 393219, -1610612728, 0, 393220, -1610612728, 0, 393221, -1610612728, 0, 393222, -1610612733, 0, 393223, -1610612732, 0, 393224, 1610612743, 0, 393225, -1610612733, 0, 393226, -1610612733, 0, 393227, -1610612733, 0, 393228, 7, 0, 393229, -1610612733, 0, 393230, -1610612732, 0, 393231, -1610612735, 0, 458752, -1610612734, 0, 458753, -1610612733, 0, 458754, -1610612733, 0, 458755, -1610612733, 0, 458756, -1610612733, 0, 458757, -1610612733, 0, 458758, -1610612735, 0, 458759, -1610612733, 0, 458760, 1610612743, 0, 458761, -1610612728, 0, 458762, -1610612728, 0, 458763, -1073741818, 0, 458764, -1610612730, 0, 458765, -1610612735, 0, 458766, -1610612735, 0, 458767, -1610612733, 0, 524288, -1610612733, 0, 524289, -1610612732, 0, 524290, -1610612732, 0, 524291, -1610612732, 0, 524292, -1610612733, 0, 524293, -1610612735, 0, 524294, -1610612735, 0, 524295, -1610612733, 0, 524296, 1610612742, 0, 524297, -1073741817, 0, 524298, -1073741817, 0, 524299, -1610612730, 0, 524300, -1610612733, 0, 524301, -1610612732, 0, 524302, -1610612735, 0, 524303, -1610612732, 0, 589824, -1610612732, 0, 589825, -1610612732, 0, 589826, -1610612733, 0, 589827, -1610612733, 0, 589828, -1610612733, 0, 589829, -1610612733, 0, 589830, -1610612732, 0, 589831, -1610612732, 0, 589832, -1610612732, 0, 589833, -1610612732, 0, 589834, -1610612732, 0, 589835, -1610612733, 0, 589836, -1610612733, 0, 589837, -1610612733, 0, 589838, -1610612732, 0, 589839, -1610612732, 0 )
+tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 3, 0, 3, 3, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 5, 0, 14, 3, 0, 15, 8, 0, 65536, 2, 0, 65537, 2, 0, 65538, 4, 0, 65539, 3, 0, 65540, 1, 0, 65541, -1073741818, 0, 65542, -1610612729, 0, 65543, -1610612729, 0, 65544, 6, 0, 65545, 1, 0, 65546, 1, 0, 65547, -1610612728, 0, 65548, 1, 0, 65549, 1, 0, 65550, 1, 0, 65551, 5, 0, 131072, 1, 0, 131073, 5, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 131077, 7, 0, 131078, -1610612728, 0, 131079, -1610612728, 0, 131080, 1610612743, 0, 131081, 3, 0, 131082, 1, 0, 131083, 1, 0, 131084, -1073741818, 0, 131085, -1073741817, 0, 131086, -1073741817, 0, 131087, -1073741817, 0, 196608, 4, 0, 196609, 2, 0, 196610, 1, 0, 196611, 5, 0, 196612, 1, 0, 196613, 7, 0, 196614, 1, 0, 196615, 1, 0, 196616, 1610612743, 0, 196617, 3, 0, 196618, 4, 0, 196619, 1, 0, 196620, 1610612743, 0, 196621, -1610612728, 0, 196622, 1, 0, 196623, 1, 0, 262144, 1, 0, 262145, 1, 0, 262146, 1, 0, 262147, 1, 0, 262148, -1610612728, 0, 262149, 7, 0, 262150, 1, 0, 262151, 1, 0, 262152, 1610612743, 0, 262153, 2, 0, 262154, 5, 0, 262155, 1, 0, 262156, 1610612743, 0, 262157, -1610612728, 0, 262158, 1, 0, 262159, 8, 0, 327680, -1073741817, 0, 327681, -1073741817, 0, 327682, -1073741817, 0, 327683, -1073741817, 0, 327684, -1073741817, 0, 327685, -1610612730, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1610612743, 0, 327689, 3, 0, 327690, 3, 0, 327691, 5, 0, 327692, 1610612743, 0, 327693, 1, 0, 327694, 1, 0, 327695, 8, 0, 393216, 1, 0, 393217, 1, 0, 393218, 1, 0, 393219, -1610612728, 0, 393220, -1610612728, 0, 393221, -1610612728, 0, 393222, 3, 0, 393223, 1, 0, 393224, 1610612743, 0, 393225, 3, 0, 393226, 3, 0, 393227, 1, 0, 393228, 7, 0, 393229, 1, 0, 393230, 1, 0, 393231, 8, 0, 458752, 4, 0, 458753, 3, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 3, 0, 458759, 3, 0, 458760, 1610612743, 0, 458761, -1610612728, 0, 458762, -1610612728, 0, 458763, -1073741818, 0, 458764, -1610612730, 0, 458765, 1, 0, 458766, 3, 0, 458767, 8, 0, 524288, 1, 0, 524289, 5, 0, 524290, 2, 0, 524291, 2, 0, 524292, 1, 0, 524293, 1, 0, 524294, 5, 0, 524295, 1, 0, 524296, 1610612742, 0, 524297, -1073741817, 0, 524298, -1073741817, 0, 524299, -1610612730, 0, 524300, 1, 0, 524301, 5, 0, 524302, 3, 0, 524303, 8, 0, 589824, 1, 0, 589825, 4, 0, 589826, 1, 0, 589827, 2, 0, 589828, 2, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 4, 0, 589838, 3, 0, 589839, 8, 0 )
 
 [node name="enemy_path" type="Path2D" parent="."]
 position = Vector2( 0, -0.793701 )
@@ -191,8 +239,10 @@ margin_left = 38.0
 margin_top = 23.0
 margin_right = 505.0
 margin_bottom = 80.0
+custom_colors/default_color = Color( 0.929412, 0.541176, 0.85098, 1 )
 custom_fonts/normal_font = SubResource( 3 )
 text = "HEALTH: 10"
+scroll_active = false
 script = ExtResource( 12 )
 
 [node name="lost" type="ColorRect" parent="CanvasLayer/Control"]
@@ -231,6 +281,24 @@ margin_bottom = 20.0
 size_flags_horizontal = 0
 text = "back to menu"
 
+[node name="center" type="CenterContainer" parent="CanvasLayer/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -164.0
+
+[node name="TimeBar" type="TextureRect" parent="CanvasLayer/Control/center"]
+margin_left = 416.0
+margin_right = 608.0
+margin_bottom = 164.0
+texture = ExtResource( 16 )
+
+[node name="distortion_effect" type="ColorRect" parent="CanvasLayer/Control"]
+material = SubResource( 5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
 [node name="update_timer" type="Timer" parent="."]
 wait_time = 0.75
 autostart = true
@@ -242,6 +310,16 @@ script = ExtResource( 13 )
 
 [node name="ysort" type="YSort" parent="."]
 
+[node name="Gate" type="Sprite" parent="."]
+position = Vector2( 992, 160 )
+texture = ExtResource( 15 )
+
+[node name="FreezeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="distortion_tween" type="Tween" parent="."]
+
 [connection signal="selected" from="CanvasLayer/Control/BuildMenu" to="." method="_on_BuildMenu_selected"]
 [connection signal="button_up" from="CanvasLayer/Control/lost/CenterContainer/VBoxContainer/CenterContainer/restart" to="." method="_on_restart_button_up"]
 [connection signal="timeout" from="update_timer" to="." method="_on_update_timer_timeout"]
+[connection signal="timeout" from="FreezeTimer" to="." method="_on_FreezeTimer_timeout"]
