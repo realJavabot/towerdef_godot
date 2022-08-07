@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://art/icon.png" type="Texture" id=1]
+[ext_resource path="res://art/Sprites/Gargoyle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/towers/Tower.gd" type="Script" id=2]
+[ext_resource path="res://scenes/towers/upgrade_font.tres" type="DynamicFont" id=3]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -44,3 +45,12 @@ texture = ExtResource( 1 )
 playback_speed = 4.0
 anims/RESET = SubResource( 1 )
 anims/shoot = SubResource( 2 )
+
+[node name="upgrade" type="RichTextLabel" parent="."]
+margin_left = -38.0977
+margin_top = -40.4787
+margin_right = 1.90234
+margin_bottom = -0.478729
+custom_colors/default_color = Color( 0.364706, 0.952941, 0.12549, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_fonts/normal_font = ExtResource( 3 )

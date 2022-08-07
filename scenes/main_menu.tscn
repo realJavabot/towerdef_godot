@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/main_menu.gd" type="Script" id=1]
+[ext_resource path="res://art/tiles/rooftop.png" type="Texture" id=2]
+[ext_resource path="res://art/Petrify bar/petrifyready.png" type="Texture" id=3]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -27,5 +29,35 @@ margin_top = 310.0
 margin_right = 532.0
 margin_bottom = 330.0
 text = "Start"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+margin_left = 55.3451
+margin_top = 23.736
+margin_right = 555.345
+margin_bottom = 123.736
+rect_min_size = Vector2( 500, 100 )
+bbcode_enabled = true
+bbcode_text = "build defenses by click-dragging on [color=red]roof tiles[/color]"
+text = "build defenses by click-dragging on roof tiles"
+
+[node name="Rooftop" type="Sprite" parent="RichTextLabel2"]
+position = Vector2( 169.508, 69.5156 )
+texture = ExtResource( 2 )
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="."]
+margin_left = 55.0
+margin_top = 144.0
+margin_right = 678.0
+margin_bottom = 317.0
+rect_min_size = Vector2( 500, 100 )
+bbcode_enabled = true
+bbcode_text = "All actions take place on rhythm
+Fill up the petrify bar by killing enemies and press space to freeze them for a moment"
+text = "All actions take place on rhythm
+Fill up the petrify bar by killing enemies and press space to freeze them for a moment"
+
+[node name="Petrifyready" type="Sprite" parent="RichTextLabel3"]
+position = Vector2( 168.806, 91.2861 )
+texture = ExtResource( 3 )
 
 [connection signal="button_up" from="CenterContainer/Button" to="." method="_on_Button_button_up"]

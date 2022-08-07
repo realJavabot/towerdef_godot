@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://art/tiles/path1.png" type="Texture" id=1]
 [ext_resource path="res://art/tiles/grass5.png" type="Texture" id=2]
@@ -21,6 +21,10 @@
 [ext_resource path="res://art/Petrify bar/petrify3.png" type="Texture" id=19]
 [ext_resource path="res://art/Petrify bar/petrify2.png" type="Texture" id=20]
 [ext_resource path="res://art/Petrify bar/petrifyready.png" type="Texture" id=21]
+[ext_resource path="res://sounds/main.ogg" type="AudioStream" id=22]
+[ext_resource path="res://art/tiles/rooftop.png" type="Texture" id=23]
+[ext_resource path="res://scenes/cancel.tscn" type="PackedScene" id=24]
+[ext_resource path="res://fonts/SHOWG.TTF" type="DynamicFontData" id=25]
 
 [sub_resource type="TileSet" id=1]
 0/name = "icon.png 0"
@@ -149,11 +153,29 @@
 8/shape_one_way_margin = 0.0
 8/shapes = [  ]
 8/z_index = 0
+9/name = "rooftop.png 9"
+9/texture = ExtResource( 23 )
+9/tex_offset = Vector2( 0, 0 )
+9/modulate = Color( 1, 1, 1, 1 )
+9/region = Rect2( 0, 0, 64, 64 )
+9/tile_mode = 0
+9/occluder_offset = Vector2( 0, 0 )
+9/navigation_offset = Vector2( 0, 0 )
+9/shape_offset = Vector2( 0, 0 )
+9/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+9/shape_one_way = false
+9/shape_one_way_margin = 0.0
+9/shapes = [  ]
+9/z_index = 0
 
 [sub_resource type="Curve2D" id=2]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, -46.6293, 335.231, 0, 0, 0, 0, 334.347, 334.437, 0, 0, 0, 0, 335.934, 77.2784, 0, 0, 0, 0, 524.835, 77.2784, 0, 0, 0, 0, 528.804, 528.1, 0, 0, 0, 0, 720.085, 528.1, 0, 0, 0, 0, 716.911, 464.604, 0, 0, 0, 0, 783.581, 462.223, 0, 0, 0, 0, 785.962, 143.949, 0, 0, 0, 0, 1343, 142.794 )
 }
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 25 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 50
@@ -208,7 +230,7 @@ time_bar_tex_array = [ ExtResource( 16 ), ExtResource( 18 ), ExtResource( 20 ), 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
 format = 1
-tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 3, 0, 3, 3, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 5, 0, 14, 3, 0, 15, 8, 0, 65536, 2, 0, 65537, 2, 0, 65538, 4, 0, 65539, 3, 0, 65540, 1, 0, 65541, -1073741818, 0, 65542, -1610612729, 0, 65543, -1610612729, 0, 65544, 6, 0, 65545, 1, 0, 65546, 1, 0, 65547, -1610612728, 0, 65548, 1, 0, 65549, 1, 0, 65550, 1, 0, 65551, 5, 0, 131072, 1, 0, 131073, 5, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 131077, 7, 0, 131078, -1610612728, 0, 131079, -1610612728, 0, 131080, 1610612743, 0, 131081, 3, 0, 131082, 1, 0, 131083, 1, 0, 131084, -1073741818, 0, 131085, -1073741817, 0, 131086, -1073741817, 0, 131087, -1073741817, 0, 196608, 4, 0, 196609, 2, 0, 196610, 1, 0, 196611, 5, 0, 196612, 1, 0, 196613, 7, 0, 196614, 1, 0, 196615, 1, 0, 196616, 1610612743, 0, 196617, 3, 0, 196618, 4, 0, 196619, 1, 0, 196620, 1610612743, 0, 196621, -1610612728, 0, 196622, 1, 0, 196623, 1, 0, 262144, 1, 0, 262145, 1, 0, 262146, 1, 0, 262147, 1, 0, 262148, -1610612728, 0, 262149, 7, 0, 262150, 1, 0, 262151, 1, 0, 262152, 1610612743, 0, 262153, 2, 0, 262154, 5, 0, 262155, 1, 0, 262156, 1610612743, 0, 262157, -1610612728, 0, 262158, 1, 0, 262159, 8, 0, 327680, -1073741817, 0, 327681, -1073741817, 0, 327682, -1073741817, 0, 327683, -1073741817, 0, 327684, -1073741817, 0, 327685, -1610612730, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1610612743, 0, 327689, 3, 0, 327690, 3, 0, 327691, 5, 0, 327692, 1610612743, 0, 327693, 1, 0, 327694, 1, 0, 327695, 8, 0, 393216, 1, 0, 393217, 1, 0, 393218, 1, 0, 393219, -1610612728, 0, 393220, -1610612728, 0, 393221, -1610612728, 0, 393222, 3, 0, 393223, 1, 0, 393224, 1610612743, 0, 393225, 3, 0, 393226, 3, 0, 393227, 1, 0, 393228, 7, 0, 393229, 1, 0, 393230, 1, 0, 393231, 8, 0, 458752, 4, 0, 458753, 3, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 3, 0, 458759, 3, 0, 458760, 1610612743, 0, 458761, -1610612728, 0, 458762, -1610612728, 0, 458763, -1073741818, 0, 458764, -1610612730, 0, 458765, 1, 0, 458766, 3, 0, 458767, 8, 0, 524288, 1, 0, 524289, 5, 0, 524290, 2, 0, 524291, 2, 0, 524292, 1, 0, 524293, 1, 0, 524294, 5, 0, 524295, 1, 0, 524296, 1610612742, 0, 524297, -1073741817, 0, 524298, -1073741817, 0, 524299, -1610612730, 0, 524300, 1, 0, 524301, 5, 0, 524302, 3, 0, 524303, 8, 0, 589824, 1, 0, 589825, 4, 0, 589826, 1, 0, 589827, 2, 0, 589828, 2, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 4, 0, 589838, 3, 0, 589839, 8, 0 )
+tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 3, 0, 3, 3, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 5, 0, 14, 3, 0, 15, 8, 0, 65536, 2, 0, 65537, 2, 0, 65538, 4, 0, 65539, 3, 0, 65540, 1, 0, 65541, -1073741818, 0, 65542, -1610612729, 0, 65543, -1610612729, 0, 65544, 6, 0, 65545, 1, 0, 65546, 1, 0, 65547, -1610612727, 0, 65548, 1, 0, 65549, 1, 0, 65550, 1, 0, 65551, 5, 0, 131072, 1, 0, 131073, 5, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 131077, 7, 0, 131078, -1610612727, 0, 131079, -1610612727, 0, 131080, 1610612743, 0, 131081, 3, 0, 131082, 1, 0, 131083, 1, 0, 131084, -1073741818, 0, 131085, -1073741817, 0, 131086, -1073741817, 0, 131087, -1073741817, 0, 196608, 4, 0, 196609, 2, 0, 196610, 1, 0, 196611, 5, 0, 196612, 1, 0, 196613, 7, 0, 196614, 1, 0, 196615, 1, 0, 196616, 1610612743, 0, 196617, 3, 0, 196618, 4, 0, 196619, 1, 0, 196620, 1610612743, 0, 196621, 1610612745, 0, 196622, 1, 0, 196623, 1, 0, 262144, 1, 0, 262145, 1, 0, 262146, 1, 0, 262147, 1, 0, 262148, -1610612727, 0, 262149, 7, 0, 262150, 1, 0, 262151, 1, 0, 262152, 1610612743, 0, 262153, 2, 0, 262154, 5, 0, 262155, 1, 0, 262156, 1610612743, 0, 262157, 1610612745, 0, 262158, 1, 0, 262159, 8, 0, 327680, -1073741817, 0, 327681, -1073741817, 0, 327682, -1073741817, 0, 327683, -1073741817, 0, 327684, -1073741817, 0, 327685, -1610612730, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1610612743, 0, 327689, 3, 0, 327690, 3, 0, 327691, 5, 0, 327692, 1610612743, 0, 327693, 1, 0, 327694, 1, 0, 327695, 8, 0, 393216, 1, 0, 393217, 1, 0, 393218, 1, 0, 393219, -1610612727, 0, 393220, -1610612727, 0, 393221, -1610612727, 0, 393222, 3, 0, 393223, 1, 0, 393224, 1610612743, 0, 393225, 3, 0, 393226, 3, 0, 393227, 1, 0, 393228, 7, 0, 393229, 1, 0, 393230, 1, 0, 393231, 8, 0, 458752, 4, 0, 458753, 3, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 3, 0, 458759, 3, 0, 458760, 1610612743, 0, 458761, -1610612727, 0, 458762, -1610612727, 0, 458763, -1073741818, 0, 458764, -1610612730, 0, 458765, 1, 0, 458766, 3, 0, 458767, 8, 0, 524288, 1, 0, 524289, 5, 0, 524290, 2, 0, 524291, 2, 0, 524292, 1, 0, 524293, 1, 0, 524294, 5, 0, 524295, 1, 0, 524296, 1610612742, 0, 524297, -1073741817, 0, 524298, -1073741817, 0, 524299, -1610612730, 0, 524300, 1, 0, 524301, 5, 0, 524302, 3, 0, 524303, 8, 0, 589824, 1, 0, 589825, 4, 0, 589826, 1, 0, 589827, 2, 0, 589828, 2, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 4, 0, 589838, 3, 0, 589839, 8, 0 )
 
 [node name="enemy_path" type="Path2D" parent="."]
 position = Vector2( 0, -0.793701 )
@@ -230,9 +252,45 @@ mouse_filter = 2
 visible = false
 rect_min_size = Vector2( 200, 200 )
 script = ExtResource( 10 )
+center_node = ExtResource( 24 )
 width_min = 0.256
 bevel_enabled = true
 modulate_enabled = true
+
+[node name="UpgradeMenu" type="Container" parent="CanvasLayer/Control"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 200, 200 )
+script = ExtResource( 10 )
+center_node = ExtResource( 24 )
+width_min = 0.256
+bevel_enabled = true
+modulate_enabled = true
+
+[node name="upgrade" type="Button" parent="CanvasLayer/Control/UpgradeMenu"]
+modulate = Color( 0.713726, 0.713726, 0.713726, 1 )
+margin_left = 20.0
+margin_top = 156.3
+margin_right = 180.0
+margin_bottom = 195.3
+rect_min_size = Vector2( 32, 32 )
+rect_pivot_offset = Vector2( 80, 19.5 )
+focus_mode = 0
+custom_fonts/font = SubResource( 6 )
+text = "upgrade"
+
+[node name="trash" type="Button" parent="CanvasLayer/Control/UpgradeMenu"]
+modulate = Color( 0.713726, 0.713726, 0.713726, 1 )
+margin_left = 42.5
+margin_top = 4.7
+margin_right = 157.5
+margin_bottom = 43.7
+rect_min_size = Vector2( 32, 32 )
+rect_pivot_offset = Vector2( 57.5, 19.5 )
+focus_mode = 0
+custom_fonts/font = SubResource( 6 )
+text = "trash"
 
 [node name="HealthLabel" type="RichTextLabel" parent="CanvasLayer/Control"]
 margin_left = 38.0
@@ -244,6 +302,36 @@ custom_fonts/normal_font = SubResource( 3 )
 text = "HEALTH: 10"
 scroll_active = false
 script = ExtResource( 12 )
+
+[node name="Gold" type="RichTextLabel" parent="CanvasLayer/Control"]
+margin_left = 35.8811
+margin_top = 84.4489
+margin_right = 502.881
+margin_bottom = 141.449
+custom_colors/default_color = Color( 0.992157, 1, 0.227451, 1 )
+custom_fonts/normal_font = SubResource( 3 )
+text = "GOLD: 0"
+scroll_active = false
+script = ExtResource( 12 )
+
+[node name="center" type="CenterContainer" parent="CanvasLayer/Control"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -164.0
+mouse_filter = 2
+
+[node name="TimeBar" type="TextureRect" parent="CanvasLayer/Control/center"]
+margin_left = 416.0
+margin_right = 608.0
+margin_bottom = 164.0
+texture = ExtResource( 16 )
+
+[node name="distortion_effect" type="ColorRect" parent="CanvasLayer/Control"]
+material = SubResource( 5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="lost" type="ColorRect" parent="CanvasLayer/Control"]
 visible = false
@@ -281,23 +369,41 @@ margin_bottom = 20.0
 size_flags_horizontal = 0
 text = "back to menu"
 
-[node name="center" type="CenterContainer" parent="CanvasLayer/Control"]
-anchor_top = 1.0
+[node name="won" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -164.0
+color = Color( 0, 0, 0, 0.490196 )
 
-[node name="TimeBar" type="TextureRect" parent="CanvasLayer/Control/center"]
-margin_left = 416.0
-margin_right = 608.0
-margin_bottom = 164.0
-texture = ExtResource( 16 )
-
-[node name="distortion_effect" type="ColorRect" parent="CanvasLayer/Control"]
-material = SubResource( 5 )
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/won"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/won/CenterContainer"]
+margin_left = 312.0
+margin_top = 288.0
+margin_right = 712.0
+margin_bottom = 352.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control/won/CenterContainer/VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 400, 40 )
+bbcode_enabled = true
+bbcode_text = "[center]You Won!"
+text = "You Won!"
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/won/CenterContainer/VBoxContainer"]
+margin_top = 44.0
+margin_right = 400.0
+margin_bottom = 64.0
+
+[node name="restart" type="Button" parent="CanvasLayer/Control/won/CenterContainer/VBoxContainer/CenterContainer"]
+margin_left = 150.0
+margin_right = 249.0
+margin_bottom = 20.0
+size_flags_horizontal = 0
+text = "back to menu"
 
 [node name="update_timer" type="Timer" parent="."]
 wait_time = 0.75
@@ -315,11 +421,20 @@ position = Vector2( 992, 160 )
 texture = ExtResource( 15 )
 
 [node name="FreezeTimer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [node name="distortion_tween" type="Tween" parent="."]
 
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 22 )
+autoplay = true
+
 [connection signal="selected" from="CanvasLayer/Control/BuildMenu" to="." method="_on_BuildMenu_selected"]
+[connection signal="pressed" from="CanvasLayer/Control/UpgradeMenu/upgrade" to="." method="_on_upgrade_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/UpgradeMenu/trash" to="." method="_on_trash_pressed"]
 [connection signal="button_up" from="CanvasLayer/Control/lost/CenterContainer/VBoxContainer/CenterContainer/restart" to="." method="_on_restart_button_up"]
+[connection signal="button_up" from="CanvasLayer/Control/won/CenterContainer/VBoxContainer/CenterContainer/restart" to="." method="_on_restart_button_up"]
 [connection signal="timeout" from="update_timer" to="." method="_on_update_timer_timeout"]
 [connection signal="timeout" from="FreezeTimer" to="." method="_on_FreezeTimer_timeout"]
+[connection signal="finished" from="music" to="." method="_on_music_finished"]

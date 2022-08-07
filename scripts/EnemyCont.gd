@@ -14,7 +14,7 @@ func on_beat():
 		return
 	if(e_ref.frozen):
 		return
-	tween.interpolate_property(self, "offset", offset, offset+64, anim_speed)
+	tween.interpolate_property(self, "offset", offset, offset + (e_ref.speed * 64), anim_speed)
 	tween.start()
 	if unit_offset >= .95:
 		queue_free()

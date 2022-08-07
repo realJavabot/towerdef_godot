@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://fonts/SHOWG.TTF" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 1 )
+
+[node name="cancel" type="Button"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -960.0
+margin_bottom = -569.0
+rect_min_size = Vector2( 64, 64 )
+custom_fonts/font = SubResource( 1 )
+text = "X"

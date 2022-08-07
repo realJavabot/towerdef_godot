@@ -240,7 +240,10 @@ func do_modulate(hovered: Node = null):
 func _on_selected(index: int):
 	if !visible:
 		return
-	var child = get_children()[index]
+	
+	var child = null
+	if index >= 0:
+		child = get_children()[index]
 
 	if child is BaseButton:
 		child.set_pressed(true)

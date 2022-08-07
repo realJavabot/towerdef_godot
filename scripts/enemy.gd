@@ -9,6 +9,7 @@ onready var anim = $AnimationPlayer
 onready var health_anim = $health_anim
 onready var dust_cloud = load("res://scenes/dust.tscn")
 export var health := 5
+export var speed := 1
 
 var frozen := false
 
@@ -39,6 +40,7 @@ func hurt(amt):
 		get_tree().root.add_child(dust)
 		var main = get_tree().root.get_node("Main")
 		main.time_bar_amt = main.time_bar_amt + 1
+		main.gold = main.gold + 1
 		destroy()
 
 func on_freeze(state):

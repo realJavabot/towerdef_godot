@@ -15,6 +15,9 @@ func set_count(new_count: int):
 
 func get_index():
 	if not self.count: return 0
+	var dist = cursor.distance_to(Vector2.ZERO)
+	if dist <  32.0 || dist > 200:
+		return -1
 
 	var normalized_cursor = cursor.normalized()
 	var angle = PI - atan2(normalized_cursor.y, normalized_cursor.x)

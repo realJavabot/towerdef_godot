@@ -1,9 +1,29 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://art/icon.png" type="Texture" id=1]
 [ext_resource path="res://scripts/radial_option.gd" type="Script" id=2]
+[ext_resource path="res://fonts/SHOWG.TTF" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
 
 [node name="rad_option" type="TextureButton"]
 rect_pivot_offset = Vector2( 32.0001, 32 )
 texture_normal = ExtResource( 1 )
 script = ExtResource( 2 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -18.0
+margin_bottom = 17.0
+custom_colors/default_color = Color( 1, 0.894118, 0.0196078, 1 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]1"
+text = "1"
+scroll_active = false
