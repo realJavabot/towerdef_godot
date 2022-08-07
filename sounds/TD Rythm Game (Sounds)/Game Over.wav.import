@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Game Over.wav-615c812b4f7cd96ed27342a2d896509b.sample"
+
+[deps]
+
+source_file="res://sounds/TD Rythm Game (Sounds)/Game Over.wav"
+dest_files=[ "res://.import/Game Over.wav-615c812b4f7cd96ed27342a2d896509b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

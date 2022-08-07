@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Castle Hit 1.3.wav-c7ce7a802faf7e45236d519df192bcd7.sample"
+
+[deps]
+
+source_file="res://sounds/TD Rythm Game (Sounds)/Castle Hit 1.3.wav"
+dest_files=[ "res://.import/Castle Hit 1.3.wav-c7ce7a802faf7e45236d519df192bcd7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

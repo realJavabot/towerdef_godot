@@ -12,6 +12,7 @@ export var health := 5
 export var speed := 1
 
 var frozen := false
+var container
 
 func _ready():
 	health_bar.max_value = health
@@ -39,6 +40,7 @@ func hurt(amt):
 		dust.emitting = true
 		get_tree().root.add_child(dust)
 		var main = get_tree().root.get_node("Main")
+		main.get_node('dead').play()
 		main.time_bar_amt = main.time_bar_amt + 1
 		main.gold = main.gold + 1
 		destroy()

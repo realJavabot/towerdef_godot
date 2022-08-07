@@ -16,6 +16,7 @@ func on_beat():
 	$text.bbcode_text = '[center]%d' % count
 
 func ring():
+	get_tree().root.get_node("Main/ring").play()
 	for en in enemies:
 		if position.distance_to(en.position) < 64*2:
 			en.hurt(2)
@@ -24,3 +25,7 @@ func upgrade():
 	def_count -= 1
 	upgrade_count -= 1
 	$upgrade.text += "+"
+
+func destroy():
+	get_tree().root.get_node("Main").taken_pos.erase(position.snapped(Vector2(64,64))/64.0 - Vector2(1,0))
+	queue_free()

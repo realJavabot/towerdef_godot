@@ -244,7 +244,7 @@ func _on_selected(index: int):
 	var child = null
 	if index >= 0:
 		child = get_children()[index]
-
+		
 	if child is BaseButton:
 		child.set_pressed(true)
 		child.emit_signal("pressed")
