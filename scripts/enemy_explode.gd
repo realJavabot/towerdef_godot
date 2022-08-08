@@ -20,6 +20,7 @@ func _ready():
 	var new_style = StyleBoxFlat.new()
 	new_style.set_bg_color(Color("#bada55"))
 	health_bar.add_stylebox_override("fg", new_style)
+	$flashing.play("flashing")
 
 func on_beat():
 	if frozen:

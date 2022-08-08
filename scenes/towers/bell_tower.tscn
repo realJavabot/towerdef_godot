@@ -1,10 +1,24 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://art/Sprites/Tower.png" type="Texture" id=1]
 [ext_resource path="res://scripts/towers/bell_tower.gd" type="Script" id=2]
 [ext_resource path="res://fonts/1313_Mockingbird_Lane.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://art/icons/aoe.png" type="Texture" id=4]
 [ext_resource path="res://scenes/towers/upgrade_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://scenes/shadow.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Shader" id=4]
+code = "shader_type canvas_item;
+
+uniform float strength: hint_range(0.0, 1.0) = 0;
+
+void fragment(){
+	COLOR = texture(TEXTURE, UV + vec2(sin(TIME*200.0)/10.0 * (1.0-UV.y) * strength, 0));
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+shader_param/strength = 0.0
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -60,12 +74,20 @@ tracks/1/keys = {
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="vignette" parent="." instance=ExtResource( 6 )]
+margin_left = -50.4569
+margin_top = -38.2757
+margin_right = 49.5431
+margin_bottom = 61.7243
+rect_min_size = Vector2( 100, 100 )
+
 [node name="aoe" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.462745 )
 position = Vector2( -0.561218, 24.1329 )
 texture = ExtResource( 4 )
 
 [node name="BellTower" type="Sprite" parent="."]
+material = SubResource( 5 )
 position = Vector2( 0.707092, -40.8685 )
 texture = ExtResource( 1 )
 
@@ -91,3 +113,5 @@ margin_right = 8.25195
 margin_bottom = -21.1149
 custom_colors/default_color = Color( 0.0862745, 1, 0.0784314, 1 )
 custom_fonts/normal_font = ExtResource( 5 )
+
+[node name="shake" type="Tween" parent="."]

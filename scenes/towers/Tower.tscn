@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://art/Sprites/Gargoyle.png" type="Texture" id=1]
 [ext_resource path="res://scripts/towers/Tower.gd" type="Script" id=2]
 [ext_resource path="res://scenes/towers/upgrade_font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://sounds/TD Rythm Game (Sounds)/FireBall.wav" type="AudioStream" id=4]
+[ext_resource path="res://scenes/shadow.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
@@ -48,6 +49,12 @@ tracks/0/keys = {
 
 [node name="Tower" type="Node2D"]
 script = ExtResource( 2 )
+
+[node name="vignette" parent="." instance=ExtResource( 5 )]
+margin_left = -38.7249
+margin_top = -14.592
+margin_right = 41.2751
+margin_bottom = 49.408
 
 [node name="sprite" type="Sprite" parent="."]
 material = SubResource( 4 )

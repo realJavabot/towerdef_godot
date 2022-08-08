@@ -15,6 +15,7 @@ func on_beat():
 			nearest = en
 	if nearest == null:
 		return
+	$sprite.flip_h = nearest.position.x < position.x
 	get_tree().root.get_node("Main/shoot").play()
 	anim.play("shoot")
 	var proj = proj_scene.instance()

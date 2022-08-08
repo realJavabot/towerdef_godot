@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://art/Sprites/ghost.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemy.gd" type="Script" id=2]
+[ext_resource path="res://ghost_shader.tres" type="Material" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.729412, 0.854902, 0.333333, 1 )
@@ -175,6 +176,8 @@ speed = 2
 position = Vector2( 0, 32 )
 
 [node name="Sprite" type="Sprite" parent="Node2D"]
+modulate = Color( 1, 1, 1, 0.847059 )
+material = ExtResource( 3 )
 position = Vector2( 0, -32 )
 rotation = 0.692511
 scale = Vector2( 1, 0.992357 )

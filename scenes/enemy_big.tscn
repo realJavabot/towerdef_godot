@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://art/Sprites/ghostbig.png" type="Texture" id=1]
 [ext_resource path="res://scripts/enemy.gd" type="Script" id=2]
 [ext_resource path="res://art/PNG/circle_04.png" type="Texture" id=3]
 [ext_resource path="res://sounds/TD Rythm Game (Sounds)/Hit.wav" type="AudioStream" id=4]
+[ext_resource path="res://ghost_shader.tres" type="Material" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.729412, 0.854902, 0.333333, 1 )
@@ -183,6 +184,8 @@ texture = ExtResource( 3 )
 position = Vector2( 0, 32 )
 
 [node name="Sprite" type="Sprite" parent="Node2D"]
+modulate = Color( 1, 1, 1, 0.717647 )
+material = ExtResource( 5 )
 position = Vector2( 0, -50.5 )
 texture = ExtResource( 1 )
 

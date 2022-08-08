@@ -192,6 +192,9 @@ func _on_update_timer_timeout():
 	if !$FreezeTimer.is_stopped() || beat_count >= BEAT_END || (beat_count < BEAT_END_FIRST_WAVE && beat_count % 2 == 0):
 		return
 	
+	if beat_count in [BEAT_END_FIFTH_WAVE, BEAT_END_FIRST_WAVE, BEAT_END_THIRD_WAVE, BEAT_END_FOURTH_WAVE, BEAT_END_SECOND_WAVE, BEAT_END_SIXTH_WAVE]:
+		self.night_strength = night_strength + .2
+	
 	var en = enemy_scene.instance()
 	if beat_count > BEAT_END_SECOND_WAVE && randf() > .7:
 		en = fast_enemy_scene.instance()
@@ -219,6 +222,17 @@ func _on_update_timer_timeout():
 	enemy_path.add_child(en_cont)
 	enemies.push_back(en)
 	en.container = en_cont
+
+var night_strength = 0 setget set_night
+onready var night_layer = $night
+func set_night(amt):
+	amt = min(.8, amt)
+	$distortion_tween.interpolate_method(self, "_set_night_method", night_strength, amt, 1)
+	$distortion_tween.start()
+	night_strength = amt
+
+func _set_night_method(amt):
+	night_layer.material.set_shader_param("strength", amt)
 
 func _on_restart_button_up():
 	enemy_path.queue_free()

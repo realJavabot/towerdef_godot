@@ -20,11 +20,16 @@ func ring():
 	for en in enemies:
 		if position.distance_to(en.position) < 64*2:
 			en.hurt(2)
+	$shake.interpolate_method(self, "shake", .8, 0, 2)
+	$shake.start()
 
 func upgrade():
 	def_count -= 1
 	upgrade_count -= 1
 	$upgrade.text += "+"
+
+func shake(amt):
+	$BellTower.material.set_shader_param("strength", amt)
 
 func destroy():
 	get_tree().root.get_node("Main").taken_pos.erase(position.snapped(Vector2(64,64))/64.0 - Vector2(1,0))

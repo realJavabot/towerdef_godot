@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://art/tiles/path1.png" type="Texture" id=1]
 [ext_resource path="res://art/tiles/grass5.png" type="Texture" id=2]
@@ -37,6 +37,7 @@
 [ext_resource path="res://art/icons/fullheart.png" type="Texture" id=35]
 [ext_resource path="res://art/icons/coin.png" type="Texture" id=36]
 [ext_resource path="res://art/buttons/menu.png" type="Texture" id=37]
+[ext_resource path="res://scenes/vignette.tscn" type="PackedScene" id=38]
 
 [sub_resource type="TileSet" id=1]
 0/name = "icon.png 0"
@@ -208,6 +209,21 @@
 11/shapes = [  ]
 11/z_index = 0
 
+[sub_resource type="Shader" id=12]
+code = "shader_type canvas_item;
+
+uniform float strength = 0;
+uniform vec4 color : hint_color = vec4(0.305, 0.298, 0.341,1);
+
+void fragment(){
+	COLOR = vec4(color.rgb,strength);
+}"
+
+[sub_resource type="ShaderMaterial" id=13]
+shader = SubResource( 12 )
+shader_param/strength = 0.0
+shader_param/color = Color( 0.00392157, 0.0470588, 0.137255, 1 )
+
 [sub_resource type="Curve2D" id=2]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, -46.6293, 335.231, 0, 0, 0, 0, 334.347, 334.437, 0, 0, 0, 0, 335.934, 77.2784, 0, 0, 0, 0, 524.835, 77.2784, 0, 0, 0, 0, 528.804, 528.1, 0, 0, 0, 0, 720.085, 528.1, 0, 0, 0, 0, 716.911, 464.604, 0, 0, 0, 0, 783.581, 462.223, 0, 0, 0, 0, 785.962, 143.949, 0, 0, 0, 0, 1343, 142.794 )
@@ -313,10 +329,26 @@ font_data = ExtResource( 25 )
 script = ExtResource( 11 )
 time_bar_tex_array = [ ExtResource( 16 ), ExtResource( 18 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 17 ), ExtResource( 21 ) ]
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="grass" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
 format = 1
 tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 3, 0, 3, 3, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 5, 0, 14, 3, 0, 15, 8, 0, 65536, 2, 0, 65537, 2, 0, 65538, 4, 0, 65539, 3, 0, 65540, 1, 0, 65541, -1073741818, 0, 65542, -1610612729, 0, 65543, -1610612729, 0, 65544, 6, 0, 65545, 1, 0, 65546, 1, 0, 65547, 10, 0, 65548, -1610612727, 0, 65549, 1, 0, 65550, 1, 0, 65551, 5, 0, 131072, 1, 0, 131073, 5, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 131077, 7, 0, 131078, -1610612727, 0, 131079, -1610612727, 0, 131080, 1610612743, 0, 131081, 3, 0, 131082, 1, 0, 131083, 9, 0, 131084, -1073741818, 0, 131085, -1073741817, 0, 131086, -1073741817, 0, 131087, -1073741817, 0, 196608, 4, 0, 196609, 2, 0, 196610, 1, 0, 196611, 5, 0, 196612, 9, 0, 196613, 7, 0, 196614, 1, 0, 196615, 1, 0, 196616, 1610612743, 0, 196617, 3, 0, 196618, 4, 0, 196619, 1, 0, 196620, 1610612743, 0, 196621, 9, 0, 196622, 1, 0, 196623, 1, 0, 262144, 1, 0, 262145, 1, 0, 262146, 1, 0, 262147, -1610612727, 0, 262148, 1610612747, 0, 262149, 7, 0, 262150, 1, 0, 262151, 1, 0, 262152, 1610612743, 0, 262153, 2, 0, 262154, 5, 0, 262155, 1, 0, 262156, 1610612743, 0, 262157, 9, 0, 262158, 1, 0, 262159, 8, 0, 327680, -1073741817, 0, 327681, -1073741817, 0, 327682, -1073741817, 0, 327683, -1073741817, 0, 327684, -1073741817, 0, 327685, -1610612730, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1610612743, 0, 327689, 3, 0, 327690, 3, 0, 327691, 5, 0, 327692, 1610612743, 0, 327693, 1, 0, 327694, 1, 0, 327695, 8, 0, 393216, 1, 0, 393217, 1, 0, 393218, 1, 0, 393219, -1610612727, 0, 393220, -1610612727, 0, 393221, -1610612727, 0, 393222, 3, 0, 393223, 1, 0, 393224, 1610612743, 0, 393225, 3, 0, 393226, 3, 0, 393227, 1, 0, 393228, 7, 0, 393229, 1, 0, 393230, 1, 0, 393231, 8, 0, 458752, 4, 0, 458753, 3, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 3, 0, 458759, 3, 0, 458760, 1610612743, 0, 458761, -1610612727, 0, 458762, -1610612727, 0, 458763, -1073741818, 0, 458764, -1610612730, 0, 458765, 1, 0, 458766, 3, 0, 458767, 8, 0, 524288, 1, 0, 524289, 5, 0, 524290, 2, 0, 524291, 2, 0, 524292, 1, 0, 524293, 1, 0, 524294, 5, 0, 524295, 1, 0, 524296, 1610612742, 0, 524297, -1073741817, 0, 524298, -1073741817, 0, 524299, -1610612730, 0, 524300, 1, 0, 524301, 5, 0, 524302, 3, 0, 524303, 8, 0, 589824, 1, 0, 589825, 4, 0, 589826, 1, 0, 589827, 2, 0, 589828, 2, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 4, 0, 589838, 3, 0, 589839, 8, 0 )
+
+[node name="night" type="ColorRect" parent="."]
+material = SubResource( 13 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -189.084
+margin_top = -71.3524
+margin_right = 1249.92
+margin_bottom = 706.648
+rect_min_size = Vector2( 20, 20 )
+mouse_filter = 2
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 1 )
+format = 1
+tile_data = PoolIntArray( 15, 8, 0, 65547, 10, 0, 65548, -1610612727, 0, 131078, -1610612727, 0, 131079, -1610612727, 0, 131083, 9, 0, 196612, 9, 0, 196621, 9, 0, 262147, -1610612727, 0, 262148, 1610612747, 0, 262157, 9, 0, 262159, 8, 0, 327695, 8, 0, 393219, -1610612727, 0, 393220, -1610612727, 0, 393221, -1610612727, 0, 393231, 8, 0, 458761, -1610612727, 0, 458762, -1610612727, 0, 458767, 8, 0, 524303, 8, 0, 589839, 8, 0 )
 
 [node name="enemy_path" type="Path2D" parent="."]
 position = Vector2( 0, -0.793701 )
@@ -328,6 +360,8 @@ color = Color( 1, 1, 1, 0.486275 )
 polygon = PoolVector2Array( 0, 0, 0, 64, 64, 64, 64, 0 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="vignette" parent="CanvasLayer" instance=ExtResource( 38 )]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -368,10 +402,10 @@ text = "upgrade"
 
 [node name="trash" type="Button" parent="CanvasLayer/Control/UpgradeMenu"]
 modulate = Color( 0.713726, 0.713726, 0.713726, 1 )
-margin_left = 143.633
-margin_top = 80.5
-margin_right = 258.633
-margin_bottom = 119.5
+margin_left = 42.5
+margin_top = 4.7
+margin_right = 157.5
+margin_bottom = 43.7
 rect_min_size = Vector2( 32, 32 )
 rect_pivot_offset = Vector2( 57.5, 19.5 )
 focus_mode = 0

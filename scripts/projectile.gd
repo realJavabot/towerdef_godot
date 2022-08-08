@@ -12,4 +12,4 @@ func _physics_process(delta):
 	if(global_position.distance_squared_to(t_ref.position) < .01):
 		t_ref.hurt(damage)
 		queue_free()
-		
+	rotation += delta*10
