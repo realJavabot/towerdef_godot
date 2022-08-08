@@ -172,6 +172,7 @@ func on_destroy(en):
 	enemies.remove(enemies.find(en))
 	if len(enemies) == 0:
 		$CanvasLayer/Control/won.visible = true
+		self.night_strength = 0
 	
 func _on_BuildMenu_selected(child):
 	if child == null:

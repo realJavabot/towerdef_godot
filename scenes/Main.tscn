@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://art/tiles/path1.png" type="Texture" id=1]
 [ext_resource path="res://art/tiles/grass5.png" type="Texture" id=2]
@@ -38,6 +38,7 @@
 [ext_resource path="res://art/icons/coin.png" type="Texture" id=36]
 [ext_resource path="res://art/buttons/menu.png" type="Texture" id=37]
 [ext_resource path="res://scenes/vignette.tscn" type="PackedScene" id=38]
+[ext_resource path="res://sounds/LOUDER.ogg" type="AudioStream" id=39]
 
 [sub_resource type="TileSet" id=1]
 0/name = "icon.png 0"
@@ -632,7 +633,7 @@ bus = "sfx"
 stream = ExtResource( 34 )
 
 [node name="explosion" type="AudioStreamPlayer" parent="."]
-bus = "sfx"
+stream = ExtResource( 39 )
 
 [connection signal="selected" from="CanvasLayer/Control/BuildMenu" to="." method="_on_BuildMenu_selected"]
 [connection signal="selected" from="CanvasLayer/Control/UpgradeMenu" to="." method="_on_UpgradeMenu_selected"]
